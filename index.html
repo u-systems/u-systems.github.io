@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>μSystems</title>
+<meta name="description" content="μSystems: small, first-principles system software. Pure assembly networking and kernel-level sandboxing.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>μ</text></svg>">
+<style>
+  :root {
+    --bg: #0b0c0e;
+    --fg: #e6e6e6;
+    --muted: #8a8f98;
+    --line: #22252b;
+    --accent: #ff521a;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+  header.nav .wrap {
+    display: flex; justify-content: space-between; align-items: center;
+    height: 56px;
+  }
+  header.nav nav a { margin-left: 24px; color: var(--muted); }
+  header.nav nav a:hover { color: var(--fg); }
+
+  .hero { padding: 120px 0 96px; }
+  .hero .mark {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 64px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 24px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 19px;
+    max-width: 620px;
+    margin: 0;
+  }
+
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin: 0 0 40px;
+  }
+
+  .projects { display: grid; gap: 16px; }
+  .card {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 28px;
+    transition: border-color .15s ease;
+  }
+  .card:hover { border-color: var(--accent); color: var(--fg); }
+  .card .top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .card h3 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .card p { color: var(--muted); margin: 12px 0 0; }
+  .card .meta {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 40px;
+  }
+  .principles h4 {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 15px;
+    margin: 0 0 8px;
+  }
+  .principles p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .roadmap { font-family: var(--mono); font-size: 14px; }
+  .roadmap li { list-style: none; padding: 6px 0; color: var(--muted); }
+  .roadmap li::before { content: "○  "; color: var(--line); }
+  .roadmap li.done::before { content: "●  "; color: var(--accent); }
+  .roadmap li.done { color: var(--fg); }
+  .roadmap ul { padding: 0; margin: 0; }
+  .roadmap h4 {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--fg);
+    margin: 0 0 12px;
+  }
+
+  .about p { color: var(--muted); max-width: 620px; margin: 0 0 16px; }
+  .about p strong { color: var(--fg); font-weight: 500; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer .wrap {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+
+  @media (max-width: 560px) {
+    .hero { padding: 80px 0 64px; }
+    header.nav nav a { margin-left: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" aria-label="μSystems home"><strong>μSystems</strong></a>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#principles">Principles</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/u-systems">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <p class="mark">μ / micro</p>
+      <h1>Small systems.<br>Direct control.</h1>
+      <p>μSystems builds low-level infrastructure from first principles: minimal dependencies, explicit hardware interaction, and no layers that were not asked for.</p>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="wrap">
+      <h2>Projects</h2>
+      <div class="projects">
+        <a class="card" href="https://github.com/u-systems/uhttp">
+          <div class="top">
+            <h3>μHTTP</h3>
+            <span class="tag">x86-64 Assembly · Pre-Beta</span>
+          </div>
+          <p>A libc-free HTTP/1.1 framework in pure x86-64 Linux assembly. Raw syscalls, no runtime, no allocator. Designed as the networking layer of the μSystems stack.</p>
+          <div class="meta">Zero dependencies · Process-per-core · RFC 9112 request smuggling defense</div>
+        </a>
+
+        <a class="card" href="https://github.com/u-systems/ushield">
+          <div class="top">
+            <h3>μShield</h3>
+            <span class="tag">C11 · Kernel Module · WIP</span>
+          </div>
+          <p>A synthetic kernel emulator and hot-patchable sandbox. Ring 0 policy enforcement with Ring 3 upcall hooks, as a lighter alternative to container runtimes and VM hypervisors.</p>
+          <div class="meta">eBPF LSM · Layered environments · Zero-copy telemetry</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <h2>Principles</h2>
+      <div class="principles">
+        <div>
+          <h4>Minimal</h4>
+          <p>Every byte, syscall and abstraction has to justify its existence. Footprint is a feature.</p>
+        </div>
+        <div>
+          <h4>Explicit</h4>
+          <p>Trust is placed in documented interfaces: man pages, the System V ABI, the kernel source.</p>
+        </div>
+        <div>
+          <h4>Honest</h4>
+          <p>Specifications state what is implemented, what is targeted, and what is not yet built.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <div class="wrap">
+      <h2>Status</h2>
+      <div class="roadmap">
+        <h4>μHTTP</h4>
+        <ul>
+          <li class="done">Raw socket lifecycle</li>
+          <li class="done">Zero-copy request parser</li>
+          <li class="done">Bounds and smuggling checks</li>
+          <li class="done">sendfile64 static serving</li>
+          <li class="done">writev response construction</li>
+          <li class="done">Core pinning</li>
+          <li>epoll event loop (EPOLLET)</li>
+          <li>io_uring / AF_XDP experiments</li>
+          <li>Custom ELF header</li>
+        </ul>
+        <br>
+        <h4>μShield</h4>
+        <ul>
+          <li class="done">Architecture and specification</li>
+          <li>Kernel module skeleton and /dev/ushield</li>
+          <li>Privilege-separated daemon</li>
+          <li>Universal policy matrix</li>
+          <li>Ring 3 upcall hooks</li>
+          <li>Layered environments</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap">
+      <h2>About</h2>
+      <p><strong>μSystems</strong> is an independent research and development effort by tralsesec. The name refers to the Greek prefix μ, micro: the aim is small, understandable systems that do one thing and do it close to the hardware.</p>
+      <p>Everything is built by hand. Projects are MIT or GPL-2.0 licensed and developed in the open.</p>
+      <p>Contact: <a href="mailto:tralsesec@gmail.com">tralsesec@gmail.com</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© μSystems</span>
+    <span>It was all a dream.</span>
+  </div>
+</footer>
+
+</body>
+</html>
