@@ -50,11 +50,23 @@
     margin: 0 0 24px;
   }
   .hero h1 {
-    font-size: clamp(40px, 7vw, 64px);
     font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+    line-height: 1.05;
     margin: 0 0 24px;
+  }
+  .hero h1 .h-small {
+    display: block;
+    font-size: clamp(22px, 3.2vw, 30px);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .hero h1 .h-big {
+    display: block;
+    font-size: clamp(48px, 9vw, 88px);
+    letter-spacing: 0.06em;
+    word-spacing: 0.1em;
   }
   .hero p {
     color: var(--muted);
@@ -174,7 +186,7 @@
   <div class="hero">
     <div class="wrap">
       <p class="mark">μ / micro</p>
-      <h1>Small systems.<br>Big goals.</h1>
+      <h1><span class="h-small">Small systems.</span><span class="h-big">Big goals.</span></h1>
       <p>μSystems builds low-level infrastructure from first principles: minimal dependencies, explicit hardware interaction, and no layers that were not asked for.</p>
     </div>
   </div>
